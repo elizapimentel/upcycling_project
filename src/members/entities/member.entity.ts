@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { IRegister } from '../common/interfaces/IRegister';
-import { Address } from './address.entity';
+import { AddressEntity } from './address.entity';
 
 @Entity({ name: 'members' })
-export class Member implements IRegister {
+export class MemberEntity implements IRegister {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
@@ -25,8 +25,8 @@ export class Member implements IRegister {
     @Column()
     birth: Date;
 
-    @Column(() => Address)
-    address: Address;
+    @Column(() => AddressEntity)
+    address: AddressEntity;
     
     @Column("simple-array", {nullable: true })
     socialMedia?: string[];

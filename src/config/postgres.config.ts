@@ -1,11 +1,13 @@
-import { config } from "dotenv";
+import { config } from 'dotenv';
 import { DataSource} from 'typeorm';
 
 config();
 
+const DB_URL=`postgresql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?schema=public`;
+
 export const AppDataSource = new DataSource({
     type: 'postgres',
-    url: process.env.DB_URL,
+    url: DB_URL,
     synchronize: false,
     entities: [__dirname + '/**/*.entity.ts'],
     migrations: [__dirname + '/migrations/*.ts'],

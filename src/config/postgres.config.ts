@@ -1,9 +1,5 @@
 import { config } from "dotenv";
 import { DataSource} from 'typeorm';
-import { MemberEntity } from '../members/entities/member.entity';
-import { ProductsEntity } from "../products/entities/products.entity";
-import { AddressEntity } from "../members/entities/address.entity";
-
 
 config();
 

@@ -8,9 +8,9 @@ const DB_URL=`postgresql://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}
 export const AppDataSource = new DataSource({
     type: 'postgres',
     url: DB_URL,
+    entities: [__dirname + '/**/*.entity{.ts,.js}'],
+    migrations: [__dirname + '/migrations/*{.ts,.js}'],
     synchronize: false,
-    entities: [__dirname + '/**/*.entity.ts'],
-    migrations: [__dirname + '/migrations/*.ts'],
     migrationsRun: true,
     logging: true,
 });

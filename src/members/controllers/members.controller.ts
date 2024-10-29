@@ -12,10 +12,10 @@ export class MembersController {
     return this.membersService.create(member);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.membersService.findAll();
-  // }
+  @Get()
+  findAll() {
+    return this.membersService.findAll();
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {

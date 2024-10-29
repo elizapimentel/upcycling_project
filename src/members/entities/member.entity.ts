@@ -1,13 +1,13 @@
-import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IRegister } from '../../common/interfaces/IRegister';
 import { AddressEntity } from './address.entity';
 import { TypeMember } from '../../common/enums/types-.register.enum';
 import { ProductsEntity } from '../../products/entities/products.entity';
 import * as bcrypt from 'bcrypt';
 
-@Entity({ name: 'members' })
+@Entity('members')
 export class MemberEntity implements IRegister {
-    @PrimaryGeneratedColumn('uuid')
+    @PrimaryGeneratedColumn('uuid', { name: 'memberId' })
     id: string;
 
     @Column({ unique: true })
@@ -25,10 +25,8 @@ export class MemberEntity implements IRegister {
     @Column({ nullable: true })
     phone?: string;
 
-    @Column()
-    birth: Date;
-
-    @Column(() => AddressEntity)
+    @OneToOne(() => AddressEntity)
+    @JoinColumn()
     address: AddressEntity;
     
     @Column("simple-array", {nullable: true })

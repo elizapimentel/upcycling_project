@@ -1,5 +1,6 @@
 import { IsArray, IsDateString, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsPhoneNumber, IsString, IsStrongPassword } from "class-validator";
 import { TypeMember } from "../../common/enums/types-.register.enum";
+import { Transform } from "class-transformer";
 
 export class CreateMemberDto {
     @IsString()
@@ -16,6 +17,10 @@ export class CreateMemberDto {
 
     @IsDateString()
     @IsNotEmpty()
+    @Transform(({ value }) => {
+        const [day, month, year] = value.split('/');
+        return new Date(`${year}-${month}-${day}`);
+      })
     birth: Date;
 
     @IsString()

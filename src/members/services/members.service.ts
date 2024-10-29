@@ -4,9 +4,10 @@ import { UpdateMemberDto } from '../dto/update-member.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MemberEntity } from '../entities/member.entity';
 import { Repository } from 'typeorm';
+import { IMembersService } from './IMembersService.interface';
 
 @Injectable()
-export class MembersService {
+export class MembersService implements IMembersService {
 
   constructor(
     @InjectRepository(MemberEntity)
@@ -14,16 +15,23 @@ export class MembersService {
   ) {}
 
   async create(newMember: CreateMemberDto) {
-    // add validação se o email já existe
+    if (newMember.email) {
+      const member = await this.membersRepository.findOne({ where: { email: newMember.email } });
+      if (member) {
+        throw new Error('Member already exists');
+      }
+    }
 
     const member = this.membersRepository.create(newMember);
 
     return await this.membersRepository.save(member);
   }
 
-  // findAll() {
-  //   return `This action returns all members`;
-  // }
+  async findAll(): Promise<MemberEntity[]> {
+    const members = await this.membersRepository.find();  
+    
+    return members;
+  }
 
   // findOne(id: number) {
   //   return `This action returns a #${id} member`;

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { MembersService } from '../services/members.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
 import { MemberSummary, TypeMember } from '../../common/enums/types-.register.enum';
@@ -23,8 +23,9 @@ export class MembersController {
     return await this.membersService.update(id, updateMemberDto);
   }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.membersService.remove(+id);
-  // }
+  @Delete(':id')
+    async delete(@Param('id') id: string) {
+        await this.membersService.delete(id);
+        return { message: `Member deleted successfully` };
+    }
 }

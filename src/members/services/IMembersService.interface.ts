@@ -7,4 +7,5 @@ export interface IMembersService {
     create(newMember: CreateMemberDto): Promise<MemberEntity>;
     findAllByMemberType(type: TypeMember): Promise<MemberSummary[]>;
     update(id: string, updateMemberDto: UpdateMemberDto): Promise<MemberEntity>;
+    delete(id: string): Promise<void>;
 }

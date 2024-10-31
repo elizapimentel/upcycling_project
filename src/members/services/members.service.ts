@@ -43,22 +43,28 @@ export class MembersService implements IMembersService {
       fullName,
       businessName,
       memberType,
-  })) as MemberSummary[];
+    })) as MemberSummary[];
   }
 
   async update(id: string, updateMemberDto: UpdateMemberDto): Promise<MemberEntity> {
     const member = await this.membersRepository.findOne({ where: { id } });
 
     if (!member) {
-        throw new NotFoundException(`Member with ID ${id} not found`);
+      throw new NotFoundException(`Member with ID ${id} not found`);
     }
 
     Object.assign(member, updateMemberDto);
 
     return await this.membersRepository.save(member);
-}
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} member`;
-  // }
+  async delete(id: string): Promise<void> {
+    const member = await this.membersRepository.findOne({ where: { id } });
+
+    if (!member) {
+      throw new NotFoundException(`Member with ID ${id} not found`);
+    }
+
+    await this.membersRepository.remove(member);
+  }
 }

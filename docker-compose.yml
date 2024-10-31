@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 
 services:
   app:
@@ -12,12 +12,14 @@ services:
     depends_on:
       - db
     env_file: .env
+    volumes:
+      - ./src:/app/src
     networks:
       - upcycling_api_network
 
   db:
     container_name: postgres
-    image: postgres:latest
+    image: postgres
     ports:
       - '5432:5432'
     restart: always
@@ -30,9 +32,10 @@ services:
       - POSTGRES_DB=${DB_DATABASE}
     networks:
       - upcycling_api_network
+      
 
 volumes:
-  data:
+  data: {}
 
 networks:
   upcycling_api_network:

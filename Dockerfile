@@ -26,4 +26,4 @@ COPY --from=builder /app/package.json ./
 COPY --from=builder /app/tsconfig.json ./ 
 COPY .env ./
 
-CMD ["npm", "run", "start:dev"]
+CMD ["npm", "run", "start:prod"]

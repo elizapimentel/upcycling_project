@@ -1,42 +1,42 @@
-version: '3.8'
+# version: '3.8'
 
-services:
-  app:
-    container_name: api
-    restart: always
-    build:
-      context: ./
-      dockerfile: Dockerfile 
-    ports:
-      - ${PORT}:${PORT}
-    depends_on:
-      - db
-    env_file: .env
-    volumes:
-      - ./src:/app/src
-    networks:
-      - upcycling_api_network
+# services:
+#   app:
+#     container_name: api
+#     restart: always
+#     build:
+#       context: ./
+#       dockerfile: Dockerfile 
+#     ports:
+#       - ${PORT}:${PORT}
+#     depends_on:
+#       - db
+#     env_file: .env
+#     volumes:
+#       - ./src:/app/src
+#     networks:
+#       - upcycling_api_network
 
-  db:
-    container_name: postgres
-    image: postgres
-    ports:
-      - '5432:5432'
-    restart: always
-    env_file: .env
-    volumes:
-      - data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=${DB_USERNAME} 
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE}
-    networks:
-      - upcycling_api_network
+#   db:
+#     container_name: postgres
+#     image: postgres
+#     ports:
+#       - '5432:5432'
+#     restart: always
+#     env_file: .env
+#     volumes:
+#       - data:/var/lib/postgresql/data
+#     environment:
+#       - POSTGRES_USER=${DB_USERNAME} 
+#       - POSTGRES_PASSWORD=${DB_PASSWORD}
+#       - POSTGRES_DB=${DB_DATABASE}
+#     networks:
+#       - upcycling_api_network
       
 
-volumes:
-  data: {}
+# volumes:
+#   data: {}
 
-networks:
-  upcycling_api_network:
-    driver: bridge
+# networks:
+#   upcycling_api_network:
+#     driver: bridge

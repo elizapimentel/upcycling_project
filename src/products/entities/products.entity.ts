@@ -28,6 +28,9 @@ export class ProductsEntity {
     @Column()
     createdAt: Date;
 
+    @Column("simple-array")
+    image: string[];
+
     @ManyToOne(() => MemberEntity, member => member.products)
     owner: MemberEntity; 
 }

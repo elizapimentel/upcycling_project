@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsArray, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { TypeProduct } from "../../common/enums/types-.register.enum";
 
 export class CreateProductDto {
@@ -22,5 +22,9 @@ export class CreateProductDto {
     @IsString()
     @IsNotEmpty()
     contact: string;
+
+    @IsNotEmpty()
+    @IsArray()
+    image: string[];
     
 }

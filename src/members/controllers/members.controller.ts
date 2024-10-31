@@ -1,11 +1,12 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put } from '@nestjs/common';
 import { MembersService } from '../services/members.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
 import { MemberSummary, TypeMember } from '../../common/enums/types-.register.enum';
+import { UpdateMemberDto } from '../dto/update-member.dto';
 
 @Controller('members')
 export class MembersController {
-  constructor(private readonly membersService: MembersService) {}
+  constructor(private readonly membersService: MembersService) { }
 
   @Post()
   async create(@Body() member: CreateMemberDto) {
@@ -13,19 +14,14 @@ export class MembersController {
   }
 
   @Get(':type')
-    async findAll(@Param('type') type: TypeMember): Promise<MemberSummary[]> {
-        return await this.membersService.findAllByMemberType(type);
-    }
+  async findAll(@Param('type') type: TypeMember): Promise<MemberSummary[]> {
+    return await this.membersService.findAllByMemberType(type);
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.membersService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
-  //   return this.membersService.update(+id, updateMemberDto);
-  // }
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateMemberDto: UpdateMemberDto) {
+    return await this.membersService.update(id, updateMemberDto);
+  }
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {

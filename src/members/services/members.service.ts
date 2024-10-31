@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMemberDto } from '../dto/create-member.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MemberEntity } from '../entities/member.entity';
@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { IMembersService } from './IMembersService.interface';
 import { AddressService } from '../../cepApi/services/address.service';
 import { MemberSummary, TypeMember } from '../../common/enums/types-.register.enum';
+import { UpdateMemberDto } from '../dto/update-member.dto';
 
 @Injectable()
 export class MembersService implements IMembersService {
@@ -45,13 +46,17 @@ export class MembersService implements IMembersService {
   })) as MemberSummary[];
   }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} member`;
-  // }
+  async update(id: string, updateMemberDto: UpdateMemberDto): Promise<MemberEntity> {
+    const member = await this.membersRepository.findOne({ where: { id } });
 
-  // update(id: number, updateMemberDto: UpdateMemberDto) {
-  //   return `This action updates a #${id} member`;
-  // }
+    if (!member) {
+        throw new NotFoundException(`Member with ID ${id} not found`);
+    }
+
+    Object.assign(member, updateMemberDto);
+
+    return await this.membersRepository.save(member);
+}
 
   // remove(id: number) {
   //   return `This action removes a #${id} member`;

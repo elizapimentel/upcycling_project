@@ -1,12 +1,12 @@
 import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
-import { MembersService } from '../services/members.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
 import { MemberSummary, TypeMember } from '../../common/enums/types-.register.enum';
 import { UpdateMemberDto } from '../dto/update-member.dto';
+import { IMembersService } from '../services/IMembersService.interface';
 
 @Controller('members')
 export class MembersController {
-  constructor(private readonly membersService: MembersService) { }
+  constructor(private readonly membersService: IMembersService) { }
 
   @Post()
   async create(@Body() member: CreateMemberDto) {

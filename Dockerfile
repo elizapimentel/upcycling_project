@@ -1,15 +1,18 @@
-FROM node:20.3.1 AS builder
+FROM node:20 AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm ci --production
+COPY package*.json ./ 
+
+RUN npm ci
+
+RUN npm install -g @nestjs/cli
 
 COPY . .
 
 RUN npm run build
 
-FROM node:20.3.1-slim
+FROM node:20-slim
 
 WORKDIR /app
 
@@ -19,8 +22,8 @@ RUN apt-get update && \
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/tsconfig.json ./ 
 COPY .env ./
 
-EXPOSE 3000
-
-CMD npx typeorm migration:run -d dist/db_config/postgres.config.js && node dist/main.js
+CMD ["npm", "run", "start:dev"]

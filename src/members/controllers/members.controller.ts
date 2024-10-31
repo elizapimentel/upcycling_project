@@ -1,20 +1,19 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MembersService } from '../services/members.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
-// import { UpdateMemberDto } from '../dto/update-member.dto';
 
 @Controller('members')
 export class MembersController {
   constructor(private readonly membersService: MembersService) {}
 
   @Post()
-  create(@Body() member: CreateMemberDto) {
-    return this.membersService.create(member);
+  async create(@Body() member: CreateMemberDto) {
+    return await this.membersService.create(member);
   }
 
   @Get()
-  findAll() {
-    return this.membersService.findAll();
+  async findAll() {
+    return await this.membersService.findAll();
   }
 
   // @Get(':id')

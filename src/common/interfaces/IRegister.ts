@@ -5,7 +5,6 @@ export interface IRegister {
     fullName: string;
     businessName?: string;
     phone?: string;
-    birth: Date;
     socialMedia?: string[];
 
 }

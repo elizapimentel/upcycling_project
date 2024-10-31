@@ -4,17 +4,22 @@ import { AppService } from './app.service';
 import { MembersModule } from './members/members.module';
 import { ProductsModule } from './products/products.module';
 import { ConfigModule } from '@nestjs/config';
-import { DbModule } from './db_config/db.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppDataSource } from './db_config/postgres.config';
+import { CepModule } from './cepApi/cep.module';
 
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      ...AppDataSource.options,
+      autoLoadEntities: true,
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
-      validationOptions: { abortEarly: true },
     }), 
-    MembersModule, ProductsModule, DbModule],
+    MembersModule, ProductsModule, CepModule],
   controllers: [AppController],
   providers: [AppService],
 })

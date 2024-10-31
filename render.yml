@@ -5,13 +5,14 @@ services:
     env: docker
     plan: free 
     buildCommand: docker build -t api .
-    startCommand: docker run -p 3000:3000 -e PORT=3000 -e DB_HOST=db -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e DB_DATABASE=${DB_DATABASE} api
+    startCommand: |
+      sh -c "until nc -z -v -w30 db 5432; do echo 'Waiting for database connection...'; sleep 1; done; docker run -p 3000:3000 -e PORT=3000 -e DB_HOST=db -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e DB_DATABASE=${DB_DATABASE} api"
     envVars:
       PORT: '3000'
-      DB_HOST: 'db' # Adicione o host aqui
+      DB_HOST: 'db' 
+      DB_DATABASE: ${DB_DATABASE}
       DB_USERNAME: ${DB_USERNAME}
       DB_PASSWORD: ${DB_PASSWORD}
-      DB_DATABASE: ${DB_DATABASE}
     autoDeploy: true
 
   db:

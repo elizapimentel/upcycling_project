@@ -14,7 +14,7 @@
 
 <p align="justify">  
 
-### **Moda up** é um projeto que conecta pessoas envolvidas no reaproveitamento de roupas, promovendo o _upcycling_. Com foco na sustentabilidade da moda e na inclusão social, buscamos transformar peças esquecidas em novas criações, fortalecendo uma comunidade engajada e consciente.
+### **Moda up** é um projeto que conecta pessoas envolvidas no reaproveitamento de roupas, promovendo o _upcycling_. Com foco na sustentabilidade da moda e na inclusão social, buscando transformar peças esquecidas em novas criações, fortalecendo uma comunidade engajada e consciente.
 
 </p>
 

@@ -9,3 +9,5 @@ export interface IMembersService {
     update(id: string, updateMemberDto: UpdateMemberDto): Promise<MemberEntity>;
     delete(id: string): Promise<void>;
 }
+
+export const IMembersService = Symbol('IMembersService');

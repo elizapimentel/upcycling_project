@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { MembersService } from '../services/members.service';
 import { CreateMemberDto } from '../dto/create-member.dto';
+import { MemberSummary, TypeMember } from '../../common/enums/types-.register.enum';
 
 @Controller('members')
 export class MembersController {
@@ -11,10 +12,10 @@ export class MembersController {
     return await this.membersService.create(member);
   }
 
-  @Get()
-  async findAll() {
-    return await this.membersService.findAll();
-  }
+  @Get(':type')
+    async findAll(@Param('type') type: TypeMember): Promise<MemberSummary[]> {
+        return await this.membersService.findAllByMemberType(type);
+    }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {

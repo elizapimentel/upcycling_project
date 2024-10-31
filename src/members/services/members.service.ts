@@ -5,6 +5,7 @@ import { MemberEntity } from '../entities/member.entity';
 import { Repository } from 'typeorm';
 import { IMembersService } from './IMembersService.interface';
 import { AddressService } from '../../cepApi/services/address.service';
+import { MemberSummary, TypeMember } from '../../common/enums/types-.register.enum';
 
 @Injectable()
 export class MembersService implements IMembersService {
@@ -13,7 +14,7 @@ export class MembersService implements IMembersService {
     @InjectRepository(MemberEntity)
     private readonly membersRepository: Repository<MemberEntity>,
     private readonly addressService: AddressService,
-  ) {}
+  ) { }
 
   async create(newMember: CreateMemberDto) {
     if (newMember.email) {
@@ -32,10 +33,16 @@ export class MembersService implements IMembersService {
     return await this.membersRepository.save(member);
   }
 
-  async findAll(): Promise<MemberEntity[]> {
-    const members = await this.membersRepository.find();  
-    
-    return members;
+  async findAllByMemberType(type: TypeMember): Promise<MemberSummary[]> {
+    const members = await this.membersRepository.find({
+      where: { memberType: type },
+    });
+
+    return members.map(({ fullName, businessName, memberType }) => ({
+      fullName,
+      businessName,
+      memberType,
+  })) as MemberSummary[];
   }
 
   // findOne(id: number) {

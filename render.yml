@@ -1,0 +1,24 @@
+services:
+  app:
+    type: web
+    name: api
+    env: docker
+    plan: free 
+    buildCommand: docker build -t api .
+    startCommand: docker run -p 3000:3000 -e PORT=3000 -e DB_USERNAME=${DB_USERNAME} -e DB_PASSWORD=${DB_PASSWORD} -e DB_DATABASE=${DB_DATABASE} api
+    envVars:
+      PORT: '3000'
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+    autoDeploy: true
+
+  db:
+    type: database
+    name: postgres
+    databaseType: postgres
+    plan: free 
+    envVars:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_DATABASE}

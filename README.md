@@ -77,6 +77,7 @@
 - Dotenv
 - Docker
 - [Swagger](http://localhost:3000/api)
+- Ngrok
 
 ## **Como instalar**
 
@@ -85,9 +86,20 @@
 - Baixe ou clone o repositório do backend usando *git clone* https://github.com/elizapimentel/upcycling_project
 
 
+## Deploy
+
+- Após baixar o repositório, instale em sua máquina o *Ngrok* através do [setup](https://dashboard.ngrok.com/get-started/setup) indicado para sua máquina.
+
+- Após instalação será gerado um *authtoken* pessoal. No arquivo _ngrok,yml_, que se encontra na raiz do projeto, insira seu token diretamente.
+
+
 ## Como executar
 
-Tenha o Docker em sua máquina e execute no terminal `docker-compose up -d --build` para subir as imagens e container no Docker.
+
+- Tenha o Docker em sua máquina e execute no terminal `docker-compose up -d --build` para subir as imagens e container no Docker.
+
+- Ao final, clique no [link](http://localhost:8081) gerado pelo ngrok e siga as instruções da página.
+
 
 ## **Implementações futuras** 
 

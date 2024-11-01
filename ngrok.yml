@@ -1,0 +1,10 @@
+version: "2"
+authtoken: ${NGROK_AUTH}
+web_addr: 0.0.0.0:8081
+update: false
+log: stdout
+
+tunnels:
+  app-foo:
+    addr: app:3000
+    proto: http
